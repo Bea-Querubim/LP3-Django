@@ -1,0 +1,26 @@
+{%  extends 'base.html'  %}
+{%  load static  %}
+
+{% block main %}
+  <h3>TAcar - Estacionamento</h3>
+  <a href="/">Home</a>
+  <a href="/cadastro_cliente/">Cadastro_Cliente</a> &nbsp;
+  <a href="/lista_clientes/">Lista_Clientes</a> &nbsp;
+  <a href="/cadastro_veiculo/">Cadastro_Veículo</a> &nbsp;
+  <a href="/lista_veiculos/">Lista_Veículos</a> &nbsp;
+  <a href="/tabela/">Tabela_Preços</a> &nbsp; &nbsp; &nbsp;
+
+   <a href="/cadastro_fabricante/">Cadastro_Fabricante</a> &nbsp;
+   <a href="/lista_fabricantes/">Lista_Fabricante</a> &nbsp;
+
+  {% if user.get_username %}
+    (  usuário:  {{ user.get_username }}  |
+        <a href="/accounts/logout/">  Logout</a>  |
+        <a href="admin/">  Admin</a>  ) <br>
+  {% else %}
+    (    <a href="/accounts/login/">  Login  </a> |
+         <a href="/accounts/registrar/">  Registrar</a> ) <br>
+  {% endif %}
+  <img src="{% static 'img/fundo.png' %}" width="600">
+
+{% endblock %}

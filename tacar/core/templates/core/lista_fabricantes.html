@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+   lista de fabricantes <br>
+
+   {% for i in dados %}
+
+      {{ i.descricao  }} <br>
+
+   {% endfor %}
+
+
+{% endblock %}
+

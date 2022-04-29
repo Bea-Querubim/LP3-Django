@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+ <img src="{% static 'logo.jpg' %}" width="500">
+ <h3>Simulador de Loteria</h3>
+ 
+ <form method="post" >
+    {% csrf_token %}
+    <input type="text" name="numero">
+    <button type="submit"> Gerar </button> <br>
+ </form>
+ <p>---------------------------------</p>
+
+ {% for i in dados %}
+    <font color ="red"> Jogo {{ forloop.counter }}</font> = {{i}} <br>
+ {% endfor %}
+ <br>
+
+</body>
+</html>
