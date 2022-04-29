@@ -1,0 +1,110 @@
+LP3  como funciona as requisições web com django:
+
+1 camanda -- mapeamento url
+2 camada -- view
+3 camada -- template
+4 camada é o retorno da request
+
+--------------------------------------------------------
+comandos:
+[quando o venv tiver ligado]
+
+pip install django
+django-admin startproject 'nome do projeto' .
+python manage.py startapp core
+python manage.py runserver
+
+python manage.py mekemigrations  *verifica as tabelas da pagina*
+python manage.py migrate  *depois que passa da camada de mapeamento
+é necessario ter tabelas,   migrate -- cria as tabelas*
+python manage.py createsuperuser  * cria login e senha admin*
+
+pip freeze > 'nome do arquivo'.txt
+
+
+#verificar se a pasta 'core' esta cadastrada em 'INSTALLED_APPS'
+#quando criar as pastas e arquivos html -- colocar o endpoint para acessar
+as paginas em url (fazer o mapeamento)
+
+EX: path('', home, name='url_principal')
+*demonstra o caminho --pós /'nome do caminho'
+
+**lembrar de importar os arquvos do caminho
+EX:
+from core.views import home, cadastro_cliente, lista_clientes, cadastro_veiculo, lista_veiculos, tabela_precos
+
+
+#Quando tiver arquivos estaticos lembrar de verificar no settings:
+**se tem todo o caminho #BASE_DIR É O CAMINHO RAIZ#/'NOME DA PASTA'
+
+EX:
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR/'staticfiles']
+
+------------------------------------------------------------
+Quando vc nao tem o venv na maquina
+1--criar venv
+python -m venv venv
+
+2-- ativar o venv 
+(lembrar de dar cd ..) 
+.\tacar\venv\Scripts\activate
+
+3-- instala o requirements
+pip install -r requirements
+
+4-- rodar servidor
+python manage.py runserver
+----------------
+
+se der erro.. verificar o erro
+se faltar o django instalado:
+pip install django
+python -m pip install Pillow
+
+-------------------------------
+
+render: carregar os objetos. pega o template (codigo e variavel) - 
+		gera o html (monta o html) e envia de volta
+
+Se o servidor é dinamico -- ele tem que esconder os scripts para levar para
+o cliente a pagina renderizada (html).
+-----------------------------------
+instance -- preenche o formulario com os dados que ja 'estao preenchidos ´
+previamente'
+
+-- erro 4xx -- pode ser falta de mapeamento no views ou
+ alguma ancora errada no codigo 
+
+--------------------------------------------------
+extends -- herda o arquivo (nome do arquivo.html) 'xxx.html'
+
+---------------------------------------------------------
+location.href='/'    ---> tipo uma ancora
+
+ancora <a ... > </a> --- geralmente usada para links
+Exemplo:
+<a href="/">Home</a> 
+<a href="/cadastro_cliente/">Cadastro_Cliente</a>
+
+-------------------------------------------------------
+user.get_username
+Pega o nome do client que eta dentro do Auth
+
+----------------------------------
+linguagem - Jinja2 (estudar!!)
+
+----------------------------------
+
+view com classe:
+-pode-se herdar outra clase e fazer um reuso
+
+no mapeamento: path('accounts/registrar/', Registrar)  
+Registrar é com R maisculo, pois é uma classe
+
+(para se usar ua classe vc INSTANCIA UM OBJETO)--|
+Usa-se como:  Registrar.as_view()  <-------------|
+
+
+view com função:
+(voce chama a função normalente)
