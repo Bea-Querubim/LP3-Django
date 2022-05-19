@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
-from core.forms import FormCliente, FormFabricante, FormVeiculo
-from core.models import Cliente, Fabricante, Veiculo
+from core.forms import *
+from core.models import *
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
+
+
 # Create your views here.
 
 
@@ -21,7 +23,7 @@ def cadastro_cliente(request):
     if form.is_valid():
         form.save()
         return redirect('url_principal')
-    contexto = {'form': form,'titulo':'Cadastro de Cliente', 'stringBotao':'Cadastrar'}
+    contexto = {'form': form, 'titulo': 'Cadastro de Cliente', 'stringBotao': 'Cadastrar'}
     return render(request, 'core/cadastro.html', contexto)
 
 
@@ -36,7 +38,7 @@ def cadastro_veiculo(request):
     if form.is_valid():
         form.save()
         return redirect('url_principal')
-    contexto = {'form': form,'titulo':'Cadastro Veiculo', 'stringBotao':'Cadastrar'}
+    contexto = {'form': form, 'titulo': 'Cadastro Veiculo', 'stringBotao': 'Cadastrar'}
     return render(request, 'core/cadastro.html', contexto)
 
 
@@ -51,7 +53,7 @@ def cadastro_fabricante(request):
     if form.is_valid():
         form.save()
         return redirect('url_principal')
-    contexto = {'form': form,'titulo':'Cadastro de Fabricante', 'stringBotao':'Cadastrar'}
+    contexto = {'form': form, 'titulo': 'Cadastro de Fabricante', 'stringBotao': 'Cadastrar'}
     return render(request, 'core/cadastro.html', contexto)
 
 
@@ -63,24 +65,103 @@ def lista_fabricantes(request):
 
 def altera_cliente(request, id):
     objeto = Cliente.objects.get(id=id)
-    form = FormCliente(request.POST or None, request.FILES or None, instance = objeto)
+    form = FormCliente(request.POST or None, request.FILES or None, instance=objeto)
 
     if form.is_valid():
         form.save()
-        contexto = {'objeto': objeto.nome, 'url':'/lista_clientes/'}
+        contexto = {'objeto': objeto.nome, 'url': '/lista_clientes/'}
         return render(request, 'core/mensagem_salvo.html', contexto)
 
-    contexto = {'form': form, 'titulo':'Atualiza Cliente', 'stringBotao':'Salvar'}
+    contexto = {'form': form, 'titulo': 'Atualiza Cliente', 'stringBotao': 'Salvar'}
     return render(request, 'core/cadastro.html', contexto)
 
 
-def tabela_preco(request):
-    return render(request, 'core/tabela_preco.html')
+def tabela(request):
+    return render(request, 'core/tabela.html')
+
 
 def exclui_cliente(request, id):
     objeto = Cliente.objects.get(id=id)
     if request.POST:
         objeto.delete()
         return redirect('url_lista_clientes')
-    contexto={'url':'/lista_clientes/', 'objeto':objeto.nome}
+    contexto = {'url': '/lista_clientes/', 'objeto': objeto.nome}
+    return render(request, 'core/confirma_exclusao.html', contexto)
+
+
+def altera_veiculo(request, id):
+    objeto = Veiculo.objects.get(id=id)
+    form = FormCliente(request.POST or None, request.FILES or None, instance=objeto)
+
+    if form.is_valid():
+        form.save()
+        contexto = {'objeto': objeto.nome, 'url': '/lista_veiculos/'}
+        return render(request, 'core/mensagem_salvo.html', contexto)
+
+    contexto = {'form': form, 'titulo': 'Atualiza Veiculo', 'stringBotao': 'Salvar'}
+    return render(request, 'core/cadastro.html', contexto)
+
+
+def exclui_veiculo(request, id):
+    objeto = Cliente.objects.get(id=id)
+    if request.POST:
+        objeto.delete()
+        return redirect('url_lista_veculos')
+    contexto = {'url': '/lista_veiculos/', 'objeto': objeto.nome}
+    return render(request, 'core/confirma_exclusao.html', contexto)
+
+
+def altera_fabricante(request, id):
+    objeto = Fabricante.objects.get(id=id)
+    form = FormFabricante(request.POST or None, request.FILES or None, instance=objeto)
+    if form.is_valid():
+        form.save()
+        contexto = {'objeto': objeto.descricao, 'url': '/lista_fabricantes/'}
+        return render(request, 'core/mensagem_salvo.html', contexto)
+    contexto = {'form': form, 'titulo': 'Atualiza Fabricante', 'stringBotao':'Salvar'}
+    return render(request, 'core/cadastro.html', contexto)
+
+
+def exclui_fabricante(request, id):
+    objeto = Fabricante.objects.get(id=id)
+    if request.POST:
+        objeto.delete()
+        return redirect('url_lista_fabricantes')
+    contexto = {'url':'/lista_fabricantes/','objeto':objeto.descricao}
+    return render(request, 'core/confirma_exclusao.html', contexto)
+
+
+def cadastro_rotativo(request):
+    form = FormRotativo(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('url_principal')
+    contexto = {'form': form, 'titulo': 'Cadastro de Rotativo', 'stringBotao': 'Cadastrar'}
+    return render(request, 'core/cadastro.html', contexto)
+
+
+def lista_rotativos(request):
+    dados = Rotativo.objects.all()
+    contexto = {'dados': dados}
+    return render(request, 'core/lista_rotativos.html', contexto)
+
+
+def altera_rotativos(request, id):
+    objeto = Rotativo.objects.get(id=id)
+    form = FormRotativo(request.POST or None, request.FILES or None, instance=objeto)
+    if form.is_valid():
+        objeto.calcula_total()
+        form.save()
+        contexto = {'objeto': objeto.descricao, 'url': '/lista_rotativos/'}
+        return render(request, 'core/mensagem_salvo.html', contexto)
+    contexto = {'form': form, 'titulo': 'Alterar Rotativo', 'stringBotao': 'Salvar'}
+    return render(request, 'core/cadastro.html', contexto)
+
+
+def exclui_rotativo(request, id):
+    objeto = Rotativo.objects.get(id=id)
+    if request.POST:
+        objeto.delete()
+        return redirect('url_lista_rotativos')
+    contexto = {'url':'/lista_rotativos/', 'objeto':objeto.data_entrada}
     return render(request, 'core/confirma_exclusao.html', contexto)

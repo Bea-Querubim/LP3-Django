@@ -6,8 +6,8 @@
    <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.as_p }}
-      <button type="submit">{{stringBotao}}</button>
-      <button type="button" onclick="location.href='/'">Cancelar</button>
+      <button type="submit" class="btn btn-primary">{{stringBotao}}</button>
+      <button type="button" class="btn btn-danger" onclick="location.href='/'">Cancelar</button>
    </form>
 
 {% endblock %}
