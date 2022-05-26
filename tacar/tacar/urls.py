@@ -27,8 +27,14 @@ urlpatterns = [
 
     path('cadastro_rotativo/', cadastro_rotativo, name='url_cadastro_rotativos'),
     path('lista_rotativos/', lista_rotativos, name='url_lista_rotativos'),
-    path('altera_rotativos/<int:id>/', altera_rotativos, name='url_altera_rotativo'),
+    path('altera_rotativo/<int:id>/', altera_rotativo, name='url_altera_rotativo'),
     path('exclui_rotativo/<int:id>/', exclui_rotativo, name='url_exclui_rotativo'),
+
+    path('cadastro_mensalista/', cadastro_mensalista, name='url_cadastro_mensalista'),
+    path('lista_mensalistas/', lista_mensalistas, name='url_lista_mensalistas'),
+    path('altera_mensalista/<int:id>/', altera_mensalista, name='url_altera_mensalista'),
+    path('exclui_mensalista/<int:id>/', exclui_mensalista, name='url_exclui_mensalista'),
+
 
     path('tabela/', tabela, name='url_tabela'),
 ]

@@ -14,7 +14,7 @@ django-admin startproject 'nome do projeto' .
 python manage.py startapp core
 python manage.py runserver
 
-python manage.py mekemigrations  *verifica as tabelas da pagina*
+python manage.py makemigrations  *verifica as tabelas da pagina*
 python manage.py migrate  *depois que passa da camada de mapeamento
 é necessario ter tabelas,   migrate -- cria as tabelas*
 python manage.py createsuperuser  * cria login e senha admin*
@@ -108,3 +108,12 @@ Usa-se como:  Registrar.as_view()  <-------------|
 
 view com função:
 (voce chama a função normalente)
+
+--------------------------------------------
+
+Se der erro no BD:
+
+- excluir o db.sqlite3
+- excluir os scripts da pasta migrations (deeixar apenas o __init__.py)
+
+--------------------------------------------------

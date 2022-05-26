@@ -30,11 +30,9 @@
         {% else %}
             <img src="{% static 'img/veiculo_generico.png' %}" width="200"> <br>
         {% endif %}
-
+    <a href="/altera_veiculo/{{i.id}}/">Editar</a>
+    <a href="/exclui_veiculo/{{i.id}}">Excluir</a> <br>
+      ------------------------------------ <br><br>
     {% endfor %}
-   <a href="/altera_veiculo/{{i.id}}/">Editar</a>
-   <a href="/exclui_veiculo/{{i.id}}">Excluir</a> <br>
-
-      ------------------------------------ <br>
 
 {% endblock %}

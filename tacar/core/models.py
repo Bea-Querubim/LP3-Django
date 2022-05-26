@@ -72,8 +72,7 @@ class Mensalista(models.Model):
     id_tabela = models.ForeignKey(Tabela, on_delete=models.CASCADE, verbose_name="Tarifa")
     data_venc = models.IntegerField(default=5, verbose_name="Dia Vencimento")
     em_pendencia = models.BooleanField(default=False, blank=True, null=True, verbose_name="Devedor")
-    forma_pagamento = models.ForeignKey(FormaPagamento, default=1, on_delete=models.CASCADE,
-                                        verbose_name='Forma de Pagamento')
+    forma_pagamento = models.ForeignKey(FormaPagamento, blank=True, null=True, on_delete=models.CASCADE, verbose_name='Forma de Pagamento')
     total = models.DecimalField(max_digits=10,decimal_places=2,blank=True, null=True, verbose_name='Total')
 
     def __str__(self):

@@ -1,6 +1,15 @@
 {% extends 'base.html' %}
 {% block main %}
 
-<h3>Tabela de preços</h3>
+   <h3>Tabela de preços</h3>
+
+   {% for i in dados %}
+          {{i.descricao }} : {{ i.valor}} <br>
+
+<a href="/altera_tabela/{{i.id}}/">Editar</a>
+<a href="/exclui_tabela/{{i.id}}">Excluir</a> <br>
+ ----------------------------<br><br>
+    {% endfor %}
 
 {% endblock %}
+
