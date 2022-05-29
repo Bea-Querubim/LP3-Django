@@ -1,5 +1,6 @@
 from django.forms import ModelForm
 from core.models import *
+from bootstrap_datepicker_plus.widgets import DateTimePickerInput
 
 
 class FormFabricante(ModelForm):
@@ -30,9 +31,12 @@ class FormRotativo(ModelForm):
     class Meta:
         model = Rotativo
         fields = '__all__'
+        widgets = {'data_entrada': DateTimePickerInput(), 'data_saida':DateTimePickerInput()}
 
 
 class FormMensalista(ModelForm):
     class Meta:
         model = Mensalista
         fields = '__all__'
+
+

@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+<!-- carrega o template calendario> </-->
+
+{% block extrahead %}
+   {% if calendario %}
+      {{form.media}}
+   {% endif %}
+{%endblock%}
 
 {% block main %}
 <h3>{{titulo}}</h3>
 
    <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      {{ form.as_p }}
+      <!-- {{ form.as_p }} troca para o {{form| crispy}}} ou {{form.campo }}> </-->
+      {{form| crispy}}
       <button type="submit" class="btn btn-primary">{{stringBotao}}</button>
       <button type="button" class="btn btn-danger" onclick="location.href='/'">Cancelar</button>
    </form>

@@ -82,8 +82,8 @@ class Mensalista(models.Model):
         verbose_name_plural = 'Mensalistas'
 
     def calculo_desconto(self):
-        obj=FormaPagamento.objects.get(id=self.forma_pagamento.primary_key)
-        obj2= Tabela.objects.get(id=self.id_tabela.primary_key)
+        obj=FormaPagamento.objects.get(id=self.forma_pagamento.pk)
+        obj2= Tabela.objects.get(id=self.id_tabela.pk)
         if obj.descricao == 'DINHEIRO':
             total = float(obj2.valor) * 0.95
         elif obj.descricao == 'PIX':
@@ -111,7 +111,7 @@ class Rotativo(models.Model):
         if self.data_entrada:
             horas = (self.data_saida - self.data_entrada).total_seconds() / 3600
             # precisa buscar o valor na tabela de preços --  uma tabela tentando acessar um campo de outra tabela
-            obj = Tabela.objects.get(id=self.id_tabela.primary_key)
+            obj = Tabela.objects.get(id=self.id_tabela.pk)
             adicional = float(obj.valor) * 0.6
             # taxa = 0.0
             if horas <= 0.5:

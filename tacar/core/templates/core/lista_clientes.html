@@ -2,9 +2,20 @@
 {% load static %}
 
 {% block main %}
-<h3>lista de clientes </h3><br>
+<!-----Barra de pequisas></!-->
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <form class="form-inline" method="post" >
+      {%csrf_token%}
+    <input class="form-control mr-sm-2" type="text" placeholder="Pesquisa" name="nomeCliente">
+    <button class="btn btn-success" type="submit">Pesquisa</button>
+  </form>
+</nav>
 
+<!-----Formatação em lista de grupo></!-->
+<li class="list-group">
    {% for i in dados %}
+
+    <li class="list-group-item">
       Nome: {{ i.nome }}  <br>
       {% if i.endereco %}
          Endereço: {{ i.endereco }} <br>
@@ -41,11 +52,11 @@
       {% if i.telefone %}
          Telefone: {{ i.telefone }} <br>
       {% else %}
-         Telefone: <br>
+         Telefone: <br><br>
       {% endif %}
 
       {% if i.foto %}
-         <img src="{{ i.foto.url }}" width="200"> <br>
+         <img src="{{ i.foto.url }}" width="200"> <br><br>
       {% else %}
          <img src="{% static 'img/perfil_generico.png' %}" width="200"> <br>
       {% endif %}
@@ -53,9 +64,8 @@
    <a href="/altera_cliente/{{i.id}}/">Editar</a>
    <a href="/exclui_cliente/{{i.id}}">Excluir</a> <br>
 
-      ------------------------------------ <br>
-
-
+   </li>
    {% endfor %}
+ </ul>
 {% endblock %}
 
