@@ -2,6 +2,7 @@
 {%  load static  %}
 
 {% block main %}
+<!--
   <h3>TAcar - Estacionamento</h3>
   <a href="/">Home</a>
   <a href="/cadastro_cliente/">Cadastro_Cliente</a> &nbsp;
@@ -20,25 +21,30 @@
 
   <a href="/cadastro_mensalista/">Cadrastro Mensalista</a>
   <a href="/lista_mensalistas/">Lista_Mensalistas</a>&nbsp;
-
+-->
 
 
   {% if user.get_username %}
     (  usuário:  {{ user.get_username }}  |
-        <a href="/accounts/logout/">  Logout</a>  |
-        <a href="admin/">  Admin</a>  ) <br>
+        <p>
+          <a href="/accounts/logout/">  Logout</a>  |
+          <a href="admin/">  Admin</a>  ) <br>
+        </p>
   {% else %}
-    (    <a href="/accounts/login/">  Login  </a> |
-         <a href="/accounts/registrar/">  Registrar</a> ) <br>
-  {% endif %}
+      <p align="right">
+        ( <a href="/accounts/login/">  Login  </a> |
+        <a href="/accounts/registrar/">  Registrar</a> ) <br>
+      </p>
+{% endif %}
   <img src="{% static 'img/fundo.png' %}" width="600">
 
+<!--
   <form method="post>">
     {%  csrf_token %}
     <input type="text" name=i_nome">
     <button type="submit">Enviar</button>
   </form>
-
+-->
   <br>
 
   {% if valor %}
