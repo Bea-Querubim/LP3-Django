@@ -3,6 +3,7 @@ from core.forms import *
 from core.models import *
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 
 def home(request):
@@ -32,8 +33,10 @@ def home(request):
 def cadastro_cliente(request):
     form = FormCliente(request.POST or None, request.FILES or None)
     if form.is_valid():
+        nome = form.cleaned_data['nome']
         form.save()
-        return redirect('url_principal')
+        messages.success(request,f'Cliente {nome} foi cadastrado com sucesso')
+        return redirect('url_lista_clientes')
 
     contexto = {'form': form, 'titulo': 'Cadastro de Cliente', 'stringBotao': 'Cadastrar'}
     return render(request, 'core/cadastro.html', contexto)
@@ -41,8 +44,8 @@ def cadastro_cliente(request):
 
 def lista_clientes(request):
     if request.POST:
-        if request.POST['nomeCliente']:
-            dados = Cliente.objects.filter(nome = request.POST['nomeCliente'])
+        if request.POST['pesquisa']:
+            dados = Cliente.objects.filter(nome=request.POST['pesquisa'])
         else:
             dados = Cliente.objects.all()
     else:
@@ -56,9 +59,10 @@ def altera_cliente(request, id):
     form = FormCliente(request.POST or None, request.FILES or None, instance=objeto)
 
     if form.is_valid():
+        nome = form.cleaned_data['nome']
         form.save()
-        contexto = {'objeto': objeto.nome, 'url': '/lista_clientes/'}
-        return render(request, 'core/mensagem_salvo.html', contexto)
+        messages.success(request, f'Dados do cliente {nome} atualizados com sucesso!')
+        return redirect('url_lista_clientes')
 
     contexto = {'form': form, 'titulo': 'Atualiza Cliente', 'stringBotao': 'Salvar'}
     return render(request, 'core/cadastro.html', contexto)
@@ -89,6 +93,10 @@ def cadastro_veiculo(request):
 
 def lista_veiculos(request):
     dados = Veiculo.objects.all()
+    if request.POST:
+        if request.POST['pesquisa']:
+            dados = Veiculo.objects.filter(placa=request.POST['pesquisa'])
+
     contexto = {'dados': dados}
     return render(request, 'core/lista_veiculos.html', contexto)
 
@@ -131,6 +139,10 @@ def cadastro_fabricante(request):
 
 def lista_fabricantes(request):
     dados = Fabricante.objects.all()
+    if request.POST:
+        if request.POST['pesquisa']:
+            dados = Veiculo.objects.filter(descricao=request.POST['pesquisa'])
+
     contexto = {'dados': dados}
     return render(request, 'core/lista_fabricantes.html', contexto)
 
@@ -179,6 +191,10 @@ def cadastro_rotativo(request):
 
 def lista_rotativos(request):
     dados = Rotativo.objects.all()
+    if request.POST:
+        if request.POST['pesquisa']:
+            dados = Veiculo.objects.filter(id_veiculo=int(request.POST['pesquisa']))
+
     contexto = {'dados': dados}
     return render(request, 'core/lista_rotativos.html', contexto)
 
@@ -222,6 +238,10 @@ def cadastro_mensalista(request):
 def lista_mensalistas(request):
     dados = Mensalista.objects.all()
     contexto = {'dados': dados}
+    if request.POST:
+        if request.POST['pesquisa']:
+            dados = Veiculo.objects.filter(descricao=request.POST['pesquisa'])
+
     return render(request, 'core/lista_mensalistas.html', contexto)
 
 
