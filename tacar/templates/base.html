@@ -108,6 +108,21 @@
     <button class="btn btn-success" type="submit">Pesquisa</button>
   </form>
 
+   <br>
+
+  <!-- Login e registro -->
+  <div align="Right">
+    {% if user.get_username %}
+      <font color="white"> Usuário: {{user.get_username}} |</font>
+      <a href="/accounts/logout/">Sair</a>
+      <a href="admin/">Adim</a> <br>
+    {% else %}
+      <font color="white"> Usuário: Não autenticado | </font>
+      <a href="/accounts/login/">Entrar</a>
+      <a href="/accounts/registrar">Cadastrar</a>
+    {% endif %}
+  </div>
+
 </nav>
 
     <div class="container-fluid">
